@@ -1,0 +1,194 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="it-IT">
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=UTF-8" />
+	<meta http-equiv="Content-Language" content="it-it" />
+
+	<!-- Open graph -->
+	<meta property="og:title" content="Lorenzo Marzullo" />
+
+    <!-- CSS -->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" media="screen" href="assets/css/normalize.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="assets/js/prism.js/prism.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="assets/css/style.css">
+
+    <!-- JS -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" ></script>
+    <script type="text/javascript" src="assets/js/prism.js/prism.min.js"></script>
+
+    <title>Lorenzo Marzullo | PhpDoc</title>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <a href="/" class="brand">Lorenzo<br />Marzullo</a>
+        </div>
+
+	<div class="post cf">
+		<div class="post-meta cf">
+			<p class="post-meta-date">Pubblicato il 15 settembre 2013</p>
+		</div>
+
+		<h1 class="post-title">PhpDoc</h1>
+
+		<div class="post-content">
+			<p>A qualsiasi sviluppatore sarà capitato di imbattersi in librerie zeppe di codice non commentato e aver perso delle ore nel tentativo di decifrare quello che potrebbe essere l&#8217;equivalente di un manoscritto egizio; nel migliore dei casi si opterà per cambiare libreria, nel peggiore ci si ritroverà ad incenerire altro tempo prezioso riscrivendo tutto da capo.</p>
+
+<p>PhpDoc è uno strumento basato sul popolare sistema Javadoc di sun che attraverso l&#8217;utilizzo di speciali commenti permette di documentare il proprio codice ottenendo, così, un sorgente più leggibile e, cosa ancora più importante, la possibilità di estrarre ed esportare in vari formati (HTML, PDF, CHM, &#8230;) la documentazione inclusa nel codice.<br />Inoltre molti IDE sono in grado di interpretare Phpdoc migliorando le funzionalità di autocompletamento.</p>
+
+<h2 id='il_docblock'>Il DocBlock</h2>
+
+<p>La struttura di base di Phpdoc è il DocBlock, cioè un commento in stile C usato per documentare un &#8220;elemento strtturale&#8221; (per elemento strtturale si intende un costrutto di PHP).<br />Secondo la documentazione gli elementi documentabili sono i seguenti:</p>
+
+<ul>
+<li>namespace</li>
+
+<li>require | include (_once)</li>
+
+<li>classi</li>
+
+<li>interfacce</li>
+
+<li>trait</li>
+
+<li>funzioni e metodi</li>
+
+<li>proprietà</li>
+
+<li>costanti</li>
+</ul>
+
+<p>Ogni DocBlock inizia con <code class='language-php'>/**</code> e finisce con <code class='language-php'>*/</code> e può contenere una o più righe. Anche se non è obbligatorio, è prassi far precedere ogni riga da un asterisco allineato con il primo dei due asterischi di apertura.</p>
+<pre class='language-php'>
+/**
+ * Il nostro primo DocBlock
+ */
+</pre>
+<p>Un DocBlock è costituito sostanzialmente da 3 sezioni (nessuna delle quali obbligatoria):</p>
+
+<ol>
+<li><strong>descrizione breve</strong>, massimo una linea, deve terminare con un punto o con due new lines consecutivi. Spesso consiste del nome stesso del metodo o della classe oppure viene omessa.</li>
+
+<li><strong>descrizione lunga</strong>, non ha limiti ed è qui che si descrive nel dettaglio il funzionamento di ciò che si sta documentando, le relazione con il resto dell&#8217;applicazione o le informazioni sulla licenza del codice. Può contenere anche dei <a href='http://www.phpdoc.org/docs/latest/for-users/phpdoc/inline-tag-reference.html'>tag inline</a>.</li>
+
+<li><strong>tags</strong>, (da non confondere con i tag inline) usati per fornire informazioni extra come i parametri ed i relative tipi aspettati da un metodo o ritornati dallo stesso, le possibili eccezioni sollevate e molto altro ancora; li vedremo tutti più avanti. E&#8217; grazie ai tag se gli IDE sono in grado migliorare l&#8217;esperienza di autcompletamento. Ogni tag inizia con <code class='language-php'>@</code>. La lista completa è presente <a href='http://www.phpdoc.org/docs/latest/for-users/phpdoc/tag-reference.html'>qui</a>. Per iniziare una riga con @ senza che venga interpretata come un tag basta anteporre un backslash.</li>
+</ol>
+<pre class='language-php'>
+/**
+ * Descrizione breve.
+ *
+ * Qui va la descrizione lunga che spiega il funzionamento
+ * del codice che segue.
+ * Non ha limiti di lunghezza ed è importante essere molto descrittivi in questa sezione.
+ *
+ * @author Lorenzo Marzullo &lt;marzullo.lorenzo@gmail.com&gt;
+ */
+</pre>
+<h2 id='fully_qualified_structural_element_name_fqsen'>Fully Qualified Structural Element Name (FQSEN)</h2>
+
+<p>All&#8217;interno di un progetto ogni elemento strtturale è rappresentato da un id univoco, il Fully Qualified Structural Element Name o FQSEN, basato sul nome dell&#8217;elemento e su ogni contenitore di cui fa parte.</p>
+
+<p>Ad esempio:</p>
+<pre class='language-php'>
+namespace Mio\Namespace;
+
+class Test
+{
+	/**
+	 * Metodo di prova.
+	 *
+	 * Funzione usata per dimostrara come viene costruito
+	 * il Fully Qualified Structural Element Name.
+	 */
+	public function metodo()
+	{
+		// Corpo del metodo
+	}
+}
+</pre>
+<p>il FQSEN di metodo in questo caso è: <code class='language-php'>\Mio\Namespace\Test::metodo()</code>.</p>
+
+<h2 id='i_tipi'>I Tipi</h2>
+
+<p>Guardando la <a href='http://www.phpdoc.org/docs/latest/for-users/phpdoc/tag-reference.html'>documentazione</a> si noterà come alcuni tag (<a href='http://www.phpdoc.org/docs/latest/for-users/phpdoc/tags/global.html'>@global</a>, <a href='http://www.phpdoc.org/docs/latest/for-users/phpdoc/tags/param.html'>@param</a>, <a href='http://www.phpdoc.org/docs/latest/for-users/phpdoc/tags/property.html'>@property</a>, <a href='http://www.phpdoc.org/docs/latest/for-users/phpdoc/tags/property-read.html'>@property-read</a>, <a href='http://www.phpdoc.org/docs/latest/for-users/phpdoc/tags/property-write.html'>@property-write</a>, <a href='http://www.phpdoc.org/docs/latest/for-users/phpdoc/tags/return.html'>@return</a>, <a href='http://www.phpdoc.org/docs/latest/for-users/phpdoc/tags/throws.html'>@throws</a>, <a href='http://www.phpdoc.org/docs/latest/for-users/phpdoc/tags/var.html'>@var</a>) prevedano l&#8217;uso di un &#8220;Type&#8221; come parte della loro dichiarazione.<br />In Phpdoc i tipi differiscono leggermente da quelli nativi di PHP, così da rappresentare tutti i possibili dati.<br />La lista completa comprende:</p>
+
+<ul>
+<li><strong>FQCN</strong> (Fully Qualified Class Name), il riferimento completo ad una classe (compreso di namespace), come indidcato nella <a href='http://php.net/manual/en/language.namespaces.rules.php'>documentazione di PHP</a>.</li>
+
+<li><strong>string</strong></li>
+
+<li><strong>integer</strong> o <strong>int</strong></li>
+
+<li><strong>boolean</strong> o <strong>bool</strong></li>
+
+<li><strong>float</strong> o <strong>double</strong></li>
+
+<li><strong>object</strong>, usato per rappresentare una classe generica.</li>
+
+<li><strong>mixed</strong>, rappresenta uno qualsiasi dei tipi ed è usato quando in fase di compilazione non si conosce con che tipo si ha a che fare.</li>
+
+<li><strong>array</strong>, usato da solo indica un array generico <code class='language-php'>@return array</code>. Altrimenti, cambiando la sintassi, può essere usato insieme ad uno o piu tipi di questa lista. Ad esempio <code class='language-php'>@return int[]</code> indica che il metodo o la funzione a cui fa riferimento ritorna un array di interi, oppure <code class='language-php'>@return (int|float)[]</code> indica che il metodo o la funzione a cui fa riferimento ritorna un array che può contenere valori di tipo int o float.</li>
+
+<li><strong>resource</strong></li>
+
+<li><strong>void</strong>, usato generalmente per documentare metodi e funzioni, indica che non è previsto alcun ritorno. Ad esempio nel caso di un metodo che esegue un <code class='language-php'>return;</code> secco, o che non lo esegue affatto.</li>
+
+<li><strong>null</strong>, indica che l&#8217;elemento al quale si riferisce è un valore NULL (o inesistente). La differenza con <strong>void</strong> sta nel fatto che null viene usato in qualsiasi situazione in cui venga dichiarato un NULL esplicito. Ad esempio <code class='language-php'>return null;</code>.</li>
+
+<li><strong>callback</strong></li>
+
+<li><strong>true</strong> o <strong>false</strong></li>
+
+<li><strong>self</strong>, indidca che l&#8217;elemento al quale si riferisce è della stessa classe di cui fa parte.</li>
+</ul>
+
+<p>Nella definizioni di un tag il &#8220;Type&#8221; può assumere uno qualsiasi dei valori prensenti nella lista.<br />&#200; possibile anche dichiarare più valori, in questo caso devono essere separati da <code class='language-php'>|</code>, ad esempio <code class='language-php'>@return int|null</code> indica che il valore di ritorno potrà essere un intero oppure null.</p>
+		</div>
+	</div>
+
+	
+		<div id="disqus_thread"></div>
+		<script type="text/javascript">
+			/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+			var disqus_shortname = 'lorenzomar'; // required: replace example with your forum shortname
+
+			/* * * DON'T EDIT BELOW THIS LINE * * */
+			(function() {
+				var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+				dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+				(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+			})();
+		</script>
+		<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+		<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+	
+
+	</div><!-- container -->
+
+	<script type="text/javascript">
+		// Google Analytics
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-39935985-1']);
+		_gaq.push(['_setDomainName', 'lorenzomarzullo.com']);
+		_gaq.push(['_trackPageview']);
+
+		(function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+
+		// Target _blank
+		jQuery( document ).ready( function( $ ){
+			var domainRoot = document.location.protocol+'//'+document.location.host;
+			$( "a" ).each( function( i, e ) {
+				var h = e.href;
+				if( h && h.substr( 0, domainRoot.length ) !== domainRoot && h !== "#") {
+					e.target = '_blank';
+				}
+			});
+		} );
+	</script>
+</body>
+</html>

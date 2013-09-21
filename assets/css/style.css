@@ -1,0 +1,196 @@
+@font-face {
+    font-family: 'icomoon';
+    src:url('fonts/icomoon.eot');
+    src:url('fonts/icomoon.eot?#iefix') format('embedded-opentype'),
+        url('fonts/icomoon.woff') format('woff'),
+        url('fonts/icomoon.ttf') format('truetype'),
+        url('fonts/icomoon.svg#icomoon') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* Use the following CSS code if you want to use data attributes for inserting your icons */
+[data-icon]:before {
+    font-family: 'icomoon';
+    content: attr(data-icon);
+    speak: none;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+
+
+/**
+ * Reset box sizing
+ * http://www.paulirish.com/2012/box-sizing-border-box-ftw/
+ */
+*,
+*:before,
+*:after {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    *behavior: url(boxsizing.htc); /* https://github.com/Schepp/box-sizing-polyfill */
+}
+
+
+/**
+ * Common styles
+ */
+.cf {
+    *zoom: 1;
+}
+.cf:before, .cf:after {
+    display: table;
+    line-height: 0;
+    content: "";
+}
+.cf:after {
+    clear: both;
+}
+a {
+    text-decoration: none;
+    color: #de6540;
+    -webkit-transition: 0.3s;
+    -moz-transition: 0.3s;
+    -ms-transition: 0.3s;
+    -o-transition: 0.3s;
+    transition: 0.3s;
+}
+a:hover, a:active {
+    color: #574742;
+}
+
+
+/**
+ * Helpers
+ */
+.container {
+    max-width: 650px;
+    padding: 0 20px;
+    margin: 0 auto;
+    position: relative;
+    *zoom: 1;
+}
+.container:before, .container:after {
+    display: table;
+    line-height: 0;
+    content: "";
+}
+.container:after {
+    clear: both;
+}
+
+
+/**
+ * Styles
+ */
+body {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1em;
+    font-weight: 300;
+    line-height: 1.4;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 1.0);
+    color: #333333;
+    margin: 0;
+    background: #f6f6f6;
+}
+.brand {
+    width: 160px;
+    height: 160px;
+    display: inline-block;
+    background: #de6540;
+    border-radius: 100%;
+    margin-top: -80px;
+    color: #f1f1f1;
+    text-shadow: none;
+    vertical-align: middle;
+    padding-top: 85px;
+}
+.brand:hover {
+    box-shadow: 0 0 15px #aaa;
+    -moz-box-shadow: 0 0 15px #aaa;
+    -webkit-box-shadow: 0 0 15px #aaa;
+    -o-box-shadow: 0 0 15px #aaa;
+    color: #ffffff;
+}
+.header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+
+
+/**
+ * Stili per i post in generale
+ */
+.post {}
+.post:after {
+    content: '\2022 \2022 \2022 \2022 \2022';
+    color: #a9a9a9;
+    margin: 25px auto 35px;
+    position: relative;
+    font-size: 1.4em;
+    letter-spacing: 2px;
+}
+.post-meta {
+    border-bottom: 1px dashed #dedede;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+}
+.post-meta-date {
+    margin: 0;
+    font-size: 0.9em;
+    color: #bcbcba;
+    font-weight: 400;
+    float: left;
+}
+.post-meta-date span {
+    margin-right: 10px;
+    font-size: 12px;
+}
+.post-title {
+    margin: 0px;
+    color: #de6540;
+}
+.post-title a {
+    text-decoration: none;
+}
+.post .meta .date {
+    float: left;
+}
+.post .meta .comments {
+    float: left;
+    margin-left: 30px;
+}
+.post .meta .comments [data-icon] {
+    color: #de6540;
+}
+
+.post h1.title {
+    font-size: 2.7em;
+}
+.post .intro {
+    font-size: 1.3em;
+    margin-bottom: 30px;
+}
+.post img {
+    border-radius: 3px;
+    -o-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border: 1px solid #dedede;
+    padding: 3px;
+}
+.post img.alignleft {
+    float: left;
+    margin-right: 1em;
+}
+.post img.alignright {
+    float: right;
+    margin-left: 1em;
+}

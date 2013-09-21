@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="it-IT">
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=UTF-8" />
+	<meta http-equiv="Content-Language" content="it-it" />
+
+	<!-- Open graph -->
+	<meta property="og:title" content="Lorenzo Marzullo" />
+
+    <!-- CSS -->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" media="screen" href="assets/css/normalize.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="assets/js/prism.js/prism.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="assets/css/style.css">
+
+    <!-- JS -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" ></script>
+    <script type="text/javascript" src="assets/js/prism.js/prism.min.js"></script>
+
+    <title>Lorenzo Marzullo</title>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <a href="/" class="brand">Lorenzo<br />Marzullo</a>
+        </div>
+
+	
+	<div class="post cf">
+		<div class="post-meta cf">
+			<p class="post-meta-date">Pubblicato il 15 settembre 2013</p>
+		</div>
+		<h2 class="post-title"><a href="/phpdoc.html">PhpDoc</a></h2>
+	</div>
+
+
+	</div><!-- container -->
+
+	<script type="text/javascript">
+		// Google Analytics
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-39935985-1']);
+		_gaq.push(['_setDomainName', 'lorenzomarzullo.com']);
+		_gaq.push(['_trackPageview']);
+
+		(function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+
+		// Target _blank
+		jQuery( document ).ready( function( $ ){
+			var domainRoot = document.location.protocol+'//'+document.location.host;
+			$( "a" ).each( function( i, e ) {
+				var h = e.href;
+				if( h && h.substr( 0, domainRoot.length ) !== domainRoot && h !== "#") {
+					e.target = '_blank';
+				}
+			});
+		} );
+	</script>
+</body>
+</html>
