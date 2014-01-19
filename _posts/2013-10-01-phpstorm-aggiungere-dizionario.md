@@ -1,30 +1,101 @@
 ---
 layout: post
-title: Aggiungere un dizionario di lingue su PHPStorm
+title: PhpDoc
 comments: true
 ---
 
-Che PHPStorm sia uno degli IDE migliori per sviluppare in PHP, è praticamente un dato di fatto. La versione 7, seppur con qualche miglioria ancora da apportare, offre un toolset veramente ricco: supporto a PHP 5.5, integrazione con Vagrant, una console SSH in grado di connettersi automaticamente alle VM create con Vagrant e [molte altre cosette sfiziose](http://www.jetbrains.com/phpstorm/whatsnew/).
+A qualsiasi sviluppatore sarà capitato di imbattersi in librerie zeppe di codice non commentato e aver perso delle ore nel tentativo di decifrare quello che potrebbe essere l'equivalente di un manoscritto egizio; nel migliore dei casi si opterà per cambiare libreria, nel peggiore ci si ritroverà ad incenerire altro tempo prezioso riscrivendo tutto da capo.
 
-Fatte le dovute premesse (spero di riuscire a scrivere altri post sull'argomento), ciò su cui voglio concentrarmi oggi è una caratteristica forse un po' marginale, ma, per chi come me non è un ninja in inglese, sicuramente molto utile: il controllo ortografico.
-
-Tra le varie funzionalità di [code inspection](https://www.jetbrains.com/phpstorm/webhelp/code-inspection.html) che questo IDE offre c'è, appunto, quella che si occupa di controllare tutti i nostri sorgenti in cerca di [e/o]rrori ortografici. Viene controllato tutto, commenti, nomi di variabili, stringhe e qualsiasi cosa che non sia un costrutto del linguaggio e alla fine ci viene presentato un "bel" report in cui è condensata tutta la nostra ignoranza! :-)
-
-![Controllo ortografico](/assets/img/2013-10-02-phpstorm-aggiungere-dizionario/spellcheck.png "Controllo ortografico")
+PhpDoc è uno strumento basato sul popolare sistema Javadoc di sun che attraverso l'utilizzo di speciali commenti permette di documentare il proprio codice ottenendo, così, un sorgente più leggibile e, cosa ancora più importante, la possibilità di estrarre ed esportare in vari formati (HTML, PDF, CHM, ...) la documentazione inclusa nel codice.
+Inoltre molti IDE sono in grado di interpretare Phpdoc migliorando le funzionalità di autocompletamento.
 
 
+## Il DocBlock
+
+La struttura di base di Phpdoc è il DocBlock, cioè un commento in stile C usato per documentare un "elemento strtturale" (per elemento strtturale si intende un costrutto di PHP).
+Secondo la documentazione gli elementi documentabili sono i seguenti:
+- namespace
+- require | include (_once)
+- classi
+- interfacce
+- trait
+- funzioni e metodi
+- proprietà
+- costanti
 
 
+Ogni DocBlock inizia con <code class="language-php">/**</code> e finisce con <code class="language-php">*/</code> e può contenere una o più righe. Anche se non è obbligatorio, è prassi far precedere ogni riga da un asterisco allineato con il primo dei due asterischi di apertura.
 
-Nativamente l'unico dizionario presente è quello inglese,
+<pre class="language-php">
+/**
+ * Il nostro primo DocBlock
+ */
+</pre>
+
+Un DocBlock è costituito sostanzialmente da 3 sezioni (nessuna delle quali obbligatoria):
+1. __descrizione breve__, massimo una linea, deve terminare con un punto o con due new lines consecutivi. Spesso consiste del nome stesso del metodo o della classe oppure viene omessa.
+2. __descrizione lunga__, non ha limiti ed è qui che si descrive nel dettaglio il funzionamento di ciò che si sta documentando, le relazione con il resto dell'applicazione o le informazioni sulla licenza del codice. Può contenere anche dei [tag inline](http://www.phpdoc.org/docs/latest/for-users/phpdoc/inline-tag-reference.html).
+3. __tags__, (da non confondere con i tag inline) usati per fornire informazioni extra come i parametri ed i relative tipi aspettati da un metodo o ritornati dallo stesso, le possibili eccezioni sollevate e molto altro ancora; li vedremo tutti più avanti. E' grazie ai tag se gli IDE sono in grado migliorare l'esperienza di autcompletamento. Ogni tag inizia con <code class="language-php">@</code>. La lista completa è presente [qui](http://www.phpdoc.org/docs/latest/for-users/phpdoc/tag-reference.html). Per iniziare una riga con @ senza che venga interpretata come un tag basta anteporre un backslash.
+
+<pre class="language-php">
+/**
+ * Descrizione breve.
+ *
+ * Qui va la descrizione lunga che spiega il funzionamento
+ * del codice che segue.
+ * Non ha limiti di lunghezza ed è importante essere molto descrittivi in questa sezione.
+ *
+ * @author Lorenzo Marzullo &lt;marzullo.lorenzo@gmail.com&gt;
+ */
+</pre>
 
 
- ma per chi, come me,
-Quello di cui voglio parlare oggi è una delle feature
+## Fully Qualified Structural Element Name (FQSEN)
 
- da chi sviluppa in PHP, è praticamente un dato di fatto
+All'interno di un progetto ogni elemento strtturale è rappresentato da un id univoco, il Fully Qualified Structural Element Name o FQSEN, basato sul nome dell'elemento e su ogni contenitore di cui fa parte.
 
-Link interessanti:
-- http://www.sublimetext.com/forum/viewtopic.php?f=3&t=6127
-- http://blog.novoj.net/2010/11/07/how-to-add-your-own-dictionary-to-intellij-idea-spellchecker/
-- http://extensions.openoffice.org/en/project/italian-dictionary-thesaurus-hyphenation-patterns
+Ad esempio:
+
+<pre class="language-php">
+namespace Mio\Namespace;
+
+class Test
+{
+	/**
+	 * Metodo di prova.
+	 *
+	 * Funzione usata per dimostrara come viene costruito
+	 * il Fully Qualified Structural Element Name.
+	 */
+	public function metodo()
+	{
+		// Corpo del metodo
+	}
+}
+</pre>
+
+il FQSEN di metodo in questo caso è: <code class="language-php">\Mio\Namespace\Test::metodo()</code>.
+
+
+## I Tipi
+
+Guardando la [documentazione](http://www.phpdoc.org/docs/latest/for-users/phpdoc/tag-reference.html) si noterà come alcuni tag ([@global](http://www.phpdoc.org/docs/latest/for-users/phpdoc/tags/global.html), [@param](http://www.phpdoc.org/docs/latest/for-users/phpdoc/tags/param.html), [@property](http://www.phpdoc.org/docs/latest/for-users/phpdoc/tags/property.html), [@property-read](http://www.phpdoc.org/docs/latest/for-users/phpdoc/tags/property-read.html), [@property-write](http://www.phpdoc.org/docs/latest/for-users/phpdoc/tags/property-write.html), [@return](http://www.phpdoc.org/docs/latest/for-users/phpdoc/tags/return.html), [@throws](http://www.phpdoc.org/docs/latest/for-users/phpdoc/tags/throws.html), [@var](http://www.phpdoc.org/docs/latest/for-users/phpdoc/tags/var.html)) prevedano l'uso di un "Type" come parte della loro dichiarazione.
+In Phpdoc i tipi differiscono leggermente da quelli nativi di PHP, così da rappresentare tutti i possibili dati.
+La lista completa comprende:
+- __FQCN__ (Fully Qualified Class Name), il riferimento completo ad una classe (compreso di namespace), come indidcato nella [documentazione di PHP](http://php.net/manual/en/language.namespaces.rules.php).
+- __string__
+- __integer__ o __int__
+- __boolean__ o __bool__
+- __float__ o __double__
+- __object__, usato per rappresentare una classe generica.
+- __mixed__, rappresenta uno qualsiasi dei tipi ed è usato quando in fase di compilazione non si conosce con che tipo si ha a che fare.
+- __array__, usato da solo indica un array generico <code class="language-php">@return array</code>. Altrimenti, cambiando la sintassi, può essere usato insieme ad uno o piu tipi di questa lista. Ad esempio <code class="language-php">@return int\[\]</code> indica che il metodo o la funzione a cui fa riferimento ritorna un array di interi, oppure <code class="language-php">@return (int|float)\[\]</code> indica che il metodo o la funzione a cui fa riferimento ritorna un array che può contenere valori di tipo int o float.
+- __resource__
+- __void__, usato generalmente per documentare metodi e funzioni, indica che non è previsto alcun ritorno. Ad esempio nel caso di un metodo che esegue un <code class="language-php">return;</code> secco, o che non lo esegue affatto.
+- __null__, indica che l'elemento al quale si riferisce è un valore NULL (o inesistente). La differenza con __void__ sta nel fatto che null viene usato in qualsiasi situazione in cui venga dichiarato un NULL esplicito. Ad esempio <code class="language-php">return null;</code>.
+- __callback__
+- __true__ o __false__
+- __self__, indidca che l'elemento al quale si riferisce è della stessa classe di cui fa parte.
+
+Nella definizioni di un tag il "Type" può assumere uno qualsiasi dei valori prensenti nella lista.
+&Egrave; possibile anche dichiarare più valori, in questo caso devono essere separati da <code class="language-php">|</code>, ad esempio <code class="language-php">@return int|null</code> indica che il valore di ritorno potrà essere un intero oppure null.
