@@ -10,7 +10,7 @@ Fatte le dovute premesse (spero di riuscire a scrivere altri post sull'argomento
 
 Tra le varie funzionalità di [code inspection](https://www.jetbrains.com/phpstorm/webhelp/code-inspection.html) che questo IDE offre c'è, appunto, quella che si occupa di controllare tutti i nostri sorgenti in cerca di [e/o]rrori ortografici. Viene controllato tutto, commenti, nomi di variabili, stringhe e qualsiasi cosa che non sia un costrutto del linguaggio e alla fine ci viene presentato un "bel" report in cui è condensata tutta la nostra ignoranza! :-)
 
-![Controllo ortografico](assets/img/spellcheck.png "Controllo ortografico")
+![Controllo ortografico](/assets/img/spellcheck.png "Controllo ortografico")
 
 
 
