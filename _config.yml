@@ -1,0 +1,6 @@
+exclude: ['Gemfile']
+destination: ./_site
+plugins: ./_plugins
+layouts: ./_layouts
+permalink: /:title.html
+title: Lorenzo Marzullo
