@@ -4,3 +4,4 @@ plugins: ./_plugins
 layouts: ./_layouts
 permalink: /:title.html
 title: Lorenzo Marzullo
+markdown: kramdown
